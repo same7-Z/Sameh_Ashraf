@@ -1,0 +1,412 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Ultra Downloader | محمل الفيديوهات والصور الفائق</title>
+  
+  <!-- PWA & Mobile App Meta Tags -->
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="theme-color" content="#6366f1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="UltraDownloader">
+  <link rel="apple-touch-icon" href="/icons/icon-512.svg">
+
+  <!-- Google Fonts: Cairo, Plus Jakarta Sans, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen flex flex-col font-cairo antialiased selection:bg-indigo-500 selection:text-white relative">
+
+  <!-- Ambient Organic Aurora Orbs -->
+  <div class="aurora-orb aurora-1"></div>
+  <div class="aurora-orb aurora-2"></div>
+  <div class="aurora-orb aurora-3"></div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="w-full border-b border-slate-800/80 bg-slate-950/60 backdrop-blur-2xl sticky top-0 z-50 transition-all">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3.5 cursor-pointer group" onclick="resetApp()">
+        <div class="relative">
+          <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl blur-sm opacity-70 group-hover:opacity-100 transition duration-300"></div>
+          <div class="relative w-11 h-11 rounded-xl bg-slate-950 flex items-center justify-center border border-white/10 shadow-inner">
+            <i data-lucide="download" class="w-5 h-5 text-indigo-400 group-hover:scale-110 group-hover:text-pink-400 transition duration-300"></i>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl font-black tracking-tight text-white group-hover:text-indigo-200 transition">Ultra Downloader</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-500/20 to-purple-500/20 text-indigo-300 border border-indigo-500/30">PRO v2.5</span>
+          </div>
+          <p class="text-xs text-slate-400 font-medium" data-i18n="tagline">تحميل يوتيوب، بينترست، تيك توك، وإنستجرام بأعلى جودة</p>
+        </div>
+      </div>
+
+      <!-- Header Action Controls (PWA Install & Language) -->
+      <div class="flex items-center gap-2.5">
+        <button id="pwaInstallBtn" class="hidden items-center gap-2 text-xs font-bold px-3.5 py-2 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white shadow-lg shadow-indigo-600/30 transition-all cursor-pointer btn-shimmer">
+          <i data-lucide="smartphone" class="w-4 h-4"></i>
+          <span data-i18n="install_app">تثبيت التطبيق</span>
+        </button>
+
+        <button id="langToggleBtn" class="flex items-center gap-2 text-xs font-bold px-3.5 py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 text-slate-200 transition-all shadow-sm cursor-pointer hover:border-indigo-500/50">
+          <i data-lucide="globe" class="w-4 h-4 text-indigo-400"></i>
+          <span id="currentLangLabel">English</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-10 flex flex-col items-center">
+
+    <!-- Hero Title & Subtitle -->
+    <div class="text-center max-w-3xl mb-8 animate-fade-in">
+      
+      <!-- Luxury Radar Badge -->
+      <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-bold mb-4 shadow-lg shadow-indigo-500/10">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-indigo-500"></span>
+        </span>
+        <span data-i18n="badge_text">محرك تحميل ذكي وفائق السرعة 4K & HD</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl md:text-6xl font-black text-white leading-tight mb-4 tracking-tight">
+        <span data-i18n="hero_title_1">حمّل فيديوهاتك وصورك</span><br>
+        <span class="text-shimmer-gradient" data-i18n="hero_title_2">بأعلى جودة فائقة حتى 4K و HD</span>
+      </h1>
+
+      <p class="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed" data-i18n="hero_desc">
+        استخراج دقيق لكافة جودات اليوتيوب (من 360p حتى 4K) مع دعم تحميل الفيديوهات والصور من Pinterest و Instagram و TikTok بدون علامة مائية وفيديوهات Facebook بجودة HD.
+      </p>
+
+      <!-- Micro Feature Chips -->
+      <div class="flex items-center justify-center flex-wrap gap-2.5 mt-5">
+        <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-slate-900/60 border border-slate-800 text-slate-300 backdrop-blur-md">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i> جودات حتى 4K 60FPS
+        </span>
+        <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-slate-900/60 border border-slate-800 text-slate-300 backdrop-blur-md">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i> بدون علامة مائية
+        </span>
+        <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-slate-900/60 border border-slate-800 text-slate-300 backdrop-blur-md">
+          <i data-lucide="image" class="w-3.5 h-3.5 text-pink-400"></i> صور وفيديوهات بدقة أصلية
+        </span>
+      </div>
+    </div>
+
+    <!-- Platform Filter Pills -->
+    <div class="flex items-center justify-center flex-wrap gap-2 sm:gap-3 mb-8 w-full max-w-3xl">
+      
+      <!-- All Platform -->
+      <button class="platform-chip active flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold border cursor-pointer" data-platform="all">
+        <i data-lucide="sparkles" class="w-4 h-4 text-indigo-400"></i>
+        <span data-i18n="plat_all">الكل</span>
+      </button>
+
+      <!-- YouTube with Official Red Play Logo -->
+      <button class="platform-chip flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold border cursor-pointer" data-platform="youtube">
+        <svg class="w-4 h-4 shrink-0 drop-shadow-sm" viewBox="0 0 24 24">
+          <path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/>
+          <path fill="#FFFFFF" d="m9.545 15.568 6.273-3.568-6.273-3.568z"/>
+        </svg>
+        <span class="text-white">YouTube</span>
+      </button>
+
+      <!-- Pinterest with Official Red Logo -->
+      <button class="platform-chip flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold border cursor-pointer" data-platform="pinterest">
+        <svg class="w-4 h-4 shrink-0 drop-shadow-sm" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="11" fill="#E60023"/>
+          <path fill="#ffffff" d="M12.017 3.5C7.322 3.5 3.5 7.322 3.5 12.017c0 3.602 2.24 6.678 5.402 7.915-.074-.673-.141-1.705.029-2.439.155-.664.997-4.225.997-4.225s-.255-.51-.255-1.263c0-1.179.686-2.065 1.537-2.065.726 0 1.077.545 1.077 1.199 0 .73-.463 1.821-.703 2.831-.202.846.425 1.535 1.259 1.535 1.509 0 2.672-1.592 2.672-3.891 0-2.029-1.463-3.453-3.551-3.453-2.418 0-3.836 1.817-3.836 3.687 0 .733.28 1.52.63 1.944.07.085.08.16.06.245-.064.266-.208.851-.237.967-.038.16-.122.192-.284.117-1.06-.49-1.726-2.041-1.726-3.295 0-2.678 1.949-5.143 5.617-5.143 2.949 0 5.242 2.104 5.242 4.91 0 2.932-1.849 5.292-4.42 5.292-.861 0-1.67-.446-1.956-.978l-.531 2.02c-.191.741-.712 1.668-1.062 2.231.796.245 1.635.38 2.518.38 4.695 0 8.517-3.822 8.517-8.517C20.534 7.322 16.712 3.5 12.017 3.5z"/>
+        </svg>
+        <span class="text-white">Pinterest</span>
+      </button>
+
+      <!-- TikTok with Official Logo -->
+      <button class="platform-chip flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold border cursor-pointer" data-platform="tiktok">
+        <svg class="w-4 h-4 shrink-0 drop-shadow-sm" viewBox="0 0 24 24">
+          <path fill="#25F4EE" d="M12.4 15.2a2.6 2.6 0 0 1-2.6 2.5 2.5 2.5 0 0 1-2.5-2.6 2.5 2.5 0 0 1 1.2-2.2v-3.2a5.8 5.8 0 0 0-4.3 5.4 5.7 5.7 0 0 0 5.6 5.7 5.8 5.8 0 0 0 5.8-5.7V8.5a7.3 7.3 0 0 0 4.3 1.4V6.8a4.3 4.3 0 0 1-3.3-.9 4.3 4.3 0 0 1-1.1-2.9h-3.1v12.2z"/>
+          <path fill="#FE2C55" d="M19.9 6.8a7.3 7.3 0 0 1-4.3-1.4v-.1a7.4 7.4 0 0 0 4.3 1.5zM12.4 15.4V3h3.1a4.3 4.3 0 0 0 1.1 2.8 4.3 4.3 0 0 0 3.3.9v3.1a7.3 7.3 0 0 1-4.3-1.4v5.9a5.8 5.8 0 0 1-5.8 5.7 5.7 5.7 0 0 1-5.6-5.7 5.8 5.8 0 0 1 4.3-5.4v3.2a2.5 2.5 0 0 0-1.2 2.2 2.5 2.5 0 0 0 2.5 2.6 2.6 2.6 0 0 0 2.6-2.5z"/>
+          <path fill="#FFFFFF" d="M12.4 15.2a2.6 2.6 0 0 1-2.6 2.5 2.5 2.5 0 0 1-2.5-2.6 2.5 2.5 0 0 1 1.2-2.2v-3.2a5.8 5.8 0 0 0-4.3 5.4 5.7 5.7 0 0 0 5.6 5.7 5.8 5.8 0 0 0 5.8-5.7V8.5a7.3 7.3 0 0 0 4.3 1.4V6.8a4.3 4.3 0 0 1-3.3-.9 4.3 4.3 0 0 1-1.1-2.8h-3.1v12.2z"/>
+        </svg>
+        <span class="text-white">TikTok</span>
+      </button>
+
+      <!-- Instagram with Gradient Camera Logo -->
+      <button class="platform-chip flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold border cursor-pointer" data-platform="instagram">
+        <svg class="w-4 h-4 shrink-0 drop-shadow-sm" viewBox="0 0 24 24">
+          <defs>
+            <radialGradient id="ig_grad_btn" r="150%" cx="30%" cy="107%">
+              <stop stop-color="#fdf497" offset="0%" />
+              <stop stop-color="#fd5949" offset="45%" />
+              <stop stop-color="#d6249f" offset="65%" />
+              <stop stop-color="#285AEB" offset="90%" />
+            </radialGradient>
+          </defs>
+          <rect x="2" y="2" width="20" height="20" rx="6" ry="6" fill="url(#ig_grad_btn)"/>
+          <circle cx="12" cy="12" r="4.2" fill="none" stroke="#ffffff" stroke-width="1.8"/>
+          <circle cx="17.2" cy="6.8" r="1.1" fill="#ffffff"/>
+        </svg>
+        <span class="text-white">Instagram</span>
+      </button>
+
+      <!-- Facebook with Official Blue Circle Logo -->
+      <button class="platform-chip flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold border cursor-pointer" data-platform="facebook">
+        <svg class="w-4 h-4 shrink-0 drop-shadow-sm" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="11" fill="#1877F2"/>
+          <path fill="#ffffff" d="M15.14 12.6l.46-3h-2.88V7.65c0-.82.4-1.62 1.69-1.62h1.31V3.48c-.73-.1-1.46-.15-2.2-.15-2.24 0-3.7 1.36-3.7 3.82V9.6H7.17v3h2.65v7.26c.53.08 1.07.13 1.62.13s1.09-.05 1.62-.13V12.6h2.08z"/>
+        </svg>
+        <span class="text-white">Facebook</span>
+      </button>
+
+    </div>
+
+    <!-- URL Input Search Box with Conic Neon Border -->
+    <div class="w-full max-w-3xl relative mb-6">
+      <form id="urlForm" class="relative group conic-neon-border">
+        <div id="searchGlowAura" class="absolute -inset-1 glow-theme-all rounded-2xl blur-lg opacity-50 group-hover:opacity-85 transition duration-500 group-focus-within:opacity-100 pointer-events-none"></div>
+        <div class="relative bg-slate-950/90 backdrop-blur-2xl rounded-2xl p-2.5 sm:p-3 border border-white/10 shadow-2xl flex flex-col sm:flex-row items-center gap-2.5">
+          
+          <div class="flex items-center flex-1 w-full px-3 gap-3">
+            <div id="inputPlatformIcon" class="w-8 h-8 rounded-lg bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center shrink-0">
+              <i data-lucide="link-2" class="w-4 h-4 text-indigo-400"></i>
+            </div>
+            <input 
+              type="text" 
+              id="videoUrlInput" 
+              class="w-full bg-transparent border-none outline-none text-white text-sm sm:text-base placeholder-slate-500 font-medium py-2.5"
+              placeholder="ضع رابط الفيديو أو الصورة هنا (YouTube, Pinterest, TikTok, Instagram, Facebook...)"
+              autocomplete="off"
+              required
+            >
+            
+            <!-- Action buttons inside input: Paste & Clear -->
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button type="button" id="clearBtn" class="hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer" title="مسح">
+                <i data-lucide="x" class="w-4 h-4"></i>
+              </button>
+              <button type="button" id="pasteBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs font-bold transition cursor-pointer hover:text-white hover:border-indigo-500/50 shadow-sm" title="لصق الرابط">
+                <i data-lucide="clipboard" class="w-3.5 h-3.5 text-indigo-400"></i>
+                <span data-i18n="paste">لصق</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Fetch & Extract Button -->
+          <button 
+            type="submit" 
+            id="fetchBtn"
+            class="w-full sm:w-auto px-6 py-3.5 rounded-xl font-black text-sm bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white shadow-xl shadow-indigo-600/30 transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer btn-shimmer active:scale-95"
+          >
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            <span data-i18n="fetch_btn">تحليل واستخراج الجودات</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Error Alert Box -->
+    <div id="errorBox" class="hidden w-full max-w-3xl mb-6 p-4 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-200 text-sm backdrop-blur-xl animate-fade-in shadow-xl shadow-red-500/10 flex items-start gap-3">
+      <i data-lucide="alert-circle" class="w-5 h-5 text-red-400 shrink-0 mt-0.5"></i>
+      <div>
+        <h4 class="font-bold mb-1" data-i18n="error_title">تعذر إتمام العملية</h4>
+        <p id="errorMessage" class="text-xs sm:text-sm text-red-300 leading-relaxed"></p>
+      </div>
+    </div>
+
+    <!-- Loading Skeleton Card -->
+    <div id="loadingBox" class="hidden w-full max-w-3xl mb-8 p-6 sm:p-8 rounded-3xl bg-slate-950/80 border border-indigo-500/30 backdrop-blur-2xl animate-fade-in shadow-2xl">
+      <div class="flex flex-col sm:flex-row items-center gap-6">
+        <div class="w-32 h-32 sm:w-44 sm:h-32 rounded-2xl bg-slate-800/60 animate-pulse shrink-0 flex items-center justify-center">
+          <i data-lucide="loader-2" class="w-8 h-8 text-indigo-400 animate-spin"></i>
+        </div>
+        <div class="flex-1 w-full space-y-3">
+          <div class="h-5 bg-slate-800/80 rounded-lg w-3/4 animate-pulse"></div>
+          <div class="h-4 bg-slate-800/50 rounded-lg w-1/2 animate-pulse"></div>
+          <div class="h-10 bg-slate-800/30 rounded-xl w-full animate-pulse mt-4"></div>
+        </div>
+      </div>
+      <div class="mt-6 pt-6 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-400">
+        <span data-i18n="loading_title">جارٍ فحص الرابط وفك تشفير الجودات المتاحة...</span>
+        <span class="text-indigo-400 font-mono">Probing Streams...</span>
+      </div>
+    </div>
+
+    <!-- Video Result & Quality Selector Box -->
+    <div id="resultBox" class="hidden w-full max-w-3xl mb-8 animate-fade-in">
+      
+      <!-- Video Details Card -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-slate-950/80 border border-white/10 backdrop-blur-2xl shadow-2xl mb-6 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 relative z-10">
+          
+          <!-- Thumbnail with duration pill -->
+          <div class="relative w-full sm:w-52 h-48 sm:h-36 rounded-2xl overflow-hidden shadow-xl border border-white/10 shrink-0 group">
+            <img id="videoThumbnail" src="" alt="Thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+            <div class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md text-[11px] font-mono font-bold text-white flex items-center gap-1 border border-white/10">
+              <i data-lucide="clock" class="w-3 h-3 text-indigo-400"></i>
+              <span id="videoDuration">00:00</span>
+            </div>
+          </div>
+
+          <!-- Video Metadata -->
+          <div class="flex-1 w-full">
+            <div class="flex items-center gap-2 mb-2">
+              <span id="platformBadge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900 border border-slate-700 text-white shadow-sm">
+                <span id="platformIconContainer"></span>
+                <span id="videoPlatformName">Platform</span>
+              </span>
+              <span id="videoViewsContainer" class="hidden text-xs text-slate-400 font-medium">
+                • <span id="videoViews">0</span> مشاهدة
+              </span>
+            </div>
+
+            <h3 id="videoTitle" class="text-base sm:text-lg font-black text-white leading-snug mb-2 line-clamp-2"></h3>
+            <p id="videoUploader" class="text-xs font-semibold text-slate-400 flex items-center gap-1">
+              <i data-lucide="user" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span>Channel</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Segmented Tab Switcher (Videos/Photos vs Audio) -->
+        <div class="mt-6 pt-6 border-t border-slate-800/80 flex items-center justify-between flex-wrap gap-3">
+          <div class="flex items-center p-1 rounded-xl bg-slate-900/90 border border-slate-800">
+            <button id="tabVideo" class="quality-tab active px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 cursor-pointer">
+              <i data-lucide="video" class="w-4 h-4"></i>
+              <span data-i18n="tab_video">الفيديوهات والصور</span>
+            </button>
+            <button id="tabAudio" class="quality-tab px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition flex items-center gap-2 cursor-pointer">
+              <i data-lucide="music" class="w-4 h-4"></i>
+              <span data-i18n="tab_audio">الصوت فقط (MP3)</span>
+            </button>
+          </div>
+          <span class="text-xs text-slate-400 font-medium" data-i18n="click_to_download_hint">اضغط زر التحميل للجودة التي تفضلها:</span>
+        </div>
+      </div>
+
+      <!-- Quality Grid Options -->
+      <div id="videoQualitiesSection">
+        <div id="videoQualitiesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5"></div>
+      </div>
+
+      <div id="audioQualitiesSection" class="hidden">
+        <div id="audioQualitiesGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5"></div>
+      </div>
+
+    </div>
+
+    <!-- Download Progress Modal -->
+    <div id="progressModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl hidden">
+      <div class="w-full max-w-md p-6 sm:p-8 rounded-3xl bg-slate-950/90 border border-indigo-500/40 shadow-2xl shadow-indigo-500/20 text-center relative overflow-hidden animate-fade-in">
+        
+        <div class="w-16 h-16 rounded-2xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center mx-auto mb-4">
+          <i id="progressIcon" data-lucide="loader-2" class="w-8 h-8 text-indigo-400 animate-spin"></i>
+        </div>
+
+        <h3 id="progressTitle" class="text-lg font-black text-white mb-1" data-i18n="processing_title">جارٍ تجهيز وتحميل الملف...</h3>
+        <p id="progressSubtitle" class="text-xs text-slate-400 mb-6" data-i18n="processing_sub">يتم الآن سحب أعلى جودة من الخوادم مباشرة</p>
+
+        <!-- Progress Bar with Laser Effect -->
+        <div class="progress-laser-track w-full h-3.5 mb-3">
+          <div id="progressBarFill" class="progress-laser-fill h-full w-0"></div>
+        </div>
+
+        <!-- Telemetry Metrics Grid -->
+        <div class="grid grid-cols-3 gap-2 my-4">
+          <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block font-semibold" data-i18n="metric_speed">السرعة</span>
+            <span id="metricSpeed" class="text-xs font-mono font-bold text-indigo-400">--</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block font-semibold" data-i18n="metric_eta">الوقت المتبقي</span>
+            <span id="metricEta" class="text-xs font-mono font-bold text-purple-400">--</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+            <span class="text-[10px] text-slate-400 block font-semibold" data-i18n="metric_size">الحجم الإجمالي</span>
+            <span id="metricSize" class="text-xs font-mono font-bold text-pink-400">--</span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-xs text-slate-400 mb-4 px-1">
+          <span id="progressStatusText" data-i18n="status_connecting">جارٍ الاتصال بالخادم...</span>
+          <span id="progressPercent" class="font-mono font-bold text-white text-sm">0%</span>
+        </div>
+
+        <!-- Completed Download Action -->
+        <div id="completedDownloadArea" class="hidden mt-4 pt-4 border-t border-slate-800">
+          <a 
+            id="finalDownloadLink" 
+            href="#" 
+            class="w-full py-3.5 px-4 rounded-xl text-sm font-black bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-2 cursor-pointer btn-shimmer"
+          >
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span data-i18n="final_download_btn">اضغط هنا إذا لم يبدأ التحميل تلقائياً</span>
+          </a>
+        </div>
+
+        <button 
+          id="closeProgressBtn" 
+          class="mt-4 text-xs font-bold text-slate-400 hover:text-white px-4 py-2 rounded-lg hover:bg-slate-900 transition cursor-pointer"
+        >
+          إغلاق النافذة
+        </button>
+      </div>
+    </div>
+
+    <!-- Recent Downloads History Drawer -->
+    <div id="historySection" class="hidden w-full max-w-3xl mt-8">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2">
+          <i data-lucide="history" class="w-4 h-4 text-indigo-400"></i>
+          <h4 class="text-sm font-bold text-white" data-i18n="history_title">التحميلات الأخيرة</h4>
+        </div>
+        <button id="clearHistoryBtn" class="text-xs text-slate-400 hover:text-red-400 transition cursor-pointer flex items-center gap-1">
+          <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+          <span data-i18n="clear_history">مسح السجل</span>
+        </button>
+      </div>
+      <div id="historyList" class="space-y-2.5"></div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full border-t border-slate-800/80 bg-slate-950/80 backdrop-blur-xl py-6 mt-auto">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Ultra Video Downloader • جميع الحقوق محفوظة 2026</span>
+      </div>
+      <div class="flex items-center gap-4 text-slate-400 font-semibold">
+        <span>YouTube</span>
+        <span>•</span>
+        <span>Pinterest</span>
+        <span>•</span>
+        <span>TikTok</span>
+        <span>•</span>
+        <span>Instagram</span>
+        <span>•</span>
+        <span>Facebook</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- App Script -->
+  <script src="js/app.js"></script>
+</body>
+</html>

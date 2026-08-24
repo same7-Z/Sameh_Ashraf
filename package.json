@@ -1,0 +1,30 @@
+{
+  "name": "ultra-video-downloader",
+  "version": "1.0.0",
+  "description": "Clean, Modern Video Downloader for YouTube, Facebook, Instagram, TikTok & more",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "@bochilteam/scraper-instagram": "^5.0.0",
+    "@mrnima/instagram-downloader": "^1.0.0",
+    "@ntnyq/instagram-downloader": "^0.1.1",
+    "@tobyg74/tiktok-api-dl": "^1.3.7",
+    "axios": "^1.19.0",
+    "btch-downloader": "^6.3.6",
+    "cakkatrok-instagram-downloader": "^2.0.2",
+    "cheerio": "^1.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "flux-tkdl": "^1.0.0",
+    "insta-fetcher": "^1.4.0",
+    "instagram-url-direct": "^2.0.7",
+    "ruhend-scraper": "^10.0.3",
+    "shaon-videos-downloader": "^1.0.1",
+    "snapsave-media-downloader": "^2.4.1",
+    "snaptik": "^1.0.4",
+    "ultra-igdl": "^1.0.3"
+  }
+}
