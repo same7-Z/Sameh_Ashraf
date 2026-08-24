@@ -12,6 +12,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
+// Root route for Vercel / serverless
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
 // Cache for video info to speed up subsequent clicks
 const infoCache = new Map();
 
@@ -149,9 +154,13 @@ app.get("/api/file/:jobId", (req, res) => {
 });
 
 // Start Server
-app.listen(PORT, () => {
-  console.log(`=================================================`);
-  console.log(`  🚀 Ultra Video Downloader is running!`);
-  console.log(`  🌐 Local URL: http://localhost:${PORT}`);
-  console.log(`=================================================`);
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    console.log(`=================================================`);
+    console.log(`  🚀 Ultra Video Downloader is running!`);
+    console.log(`  🌐 Local URL: http://localhost:${PORT}`);
+    console.log(`=================================================`);
+  });
+}
+
+module.exports = app;

@@ -727,13 +727,13 @@ function listenToProgress(jobId, videoTitle) {
         progressIcon.setAttribute("data-lucide", "check-circle-2");
         progressIcon.classList.remove("animate-spin", "text-indigo-400");
         progressIcon.classList.add("text-emerald-400");
-        if (window.lucide) lucide.createIcons();
-
-        const fileDownloadUrl = `/api/file/${jobId}?title=${encodeURIComponent(videoTitle)}`;
-        finalDownloadLink.href = fileDownloadUrl;
+        const absoluteDownloadUrl = `${window.location.origin}/api/file/${jobId}?title=${encodeURIComponent(videoTitle || "download")}`;
+        finalDownloadLink.href = absoluteDownloadUrl;
+        finalDownloadLink.setAttribute("download", `${videoTitle || "download"}.mp4`);
         completedArea.classList.remove("hidden");
 
-        triggerBrowserDownload(fileDownloadUrl, `${videoTitle || "video"}.mp4`);
+        // Attempt direct browser trigger
+        triggerBrowserDownload(absoluteDownloadUrl, `${videoTitle || "download"}.mp4`);
 
         evtSource.close();
       } else if (job.status === "error") {
@@ -752,13 +752,18 @@ function listenToProgress(jobId, videoTitle) {
 
 function triggerBrowserDownload(url, filename) {
   const absoluteUrl = url.startsWith("http") ? url : `${window.location.origin}${url}`;
-  const link = document.createElement("a");
-  link.href = absoluteUrl;
-  link.setAttribute("download", filename || "download");
-  link.style.display = "none";
-  document.body.appendChild(link);
-  link.click();
-  setTimeout(() => link.remove(), 2000);
+  try {
+    const link = document.createElement("a");
+    link.href = absoluteUrl;
+    link.setAttribute("download", filename || "download");
+    link.setAttribute("target", "_blank");
+    link.style.display = "none";
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => link.remove(), 2000);
+  } catch (e) {
+    window.location.href = absoluteUrl;
+  }
 }
 
 function openProgressModal() {
